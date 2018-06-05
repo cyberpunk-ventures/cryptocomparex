@@ -1,9 +1,9 @@
 defmodule Cryptocomparex do
   use Tesla
 
-  plug(Tesla.Middleware.BaseUrl, "https://min-api.cryptocompare.com")
-  plug(Cryptocomparex.ResponseMiddleware)
-  plug(Tesla.Middleware.JSON)
+  plug Tesla.Middleware.BaseUrl, "https://min-api.cryptocompare.com"
+  plug Cryptocomparex.ResponseMiddleware
+  plug Tesla.Middleware.JSON
 
   @moduledoc """
   Documentation for Cryptocomparex.
