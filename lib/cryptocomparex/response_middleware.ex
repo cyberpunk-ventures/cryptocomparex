@@ -38,6 +38,17 @@ defmodule Cryptocomparex.ResponseMiddleware do
 
         put_in(body.data, data)
 
+      is_all_coins_endpoint?(url) ->
+        {data, body} = Map.pop(body, "Data")
+        body = body |> KeyTools.underscore_keys() |> KeyTools.atomize_keys()
+
+        data =
+          for {k, v} <- data, into: Map.new() do
+            {k, v |> KeyTools.underscore_keys() |> KeyTools.atomize_keys()}
+          end
+
+        Map.put(body, :data, data)
+
       true ->
         body
     end
@@ -45,5 +56,9 @@ defmodule Cryptocomparex.ResponseMiddleware do
 
   def is_histo_endpoint?(url) do
     String.contains?(url, ["/data/histoday", "/data/histohour", "/data/histominute"])
+  end
+
+  def is_all_coins_endpoint?(url) do
+    String.contains?(url, ["data/all/coinlist"])
   end
 end

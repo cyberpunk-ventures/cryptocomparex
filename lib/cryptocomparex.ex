@@ -24,6 +24,21 @@ defmodule Cryptocomparex do
   end
 
   @doc """
+  Hello world.
+
+  ## Examples
+
+      iex> {:ok, %{body: %{data: data}}} = Cryptocomparex.get_coin_list()
+      iex> is_map(data["BTC"])
+      true
+
+  """
+
+  def get_coin_list() do
+    get("data/all/coinlist")
+  end
+
+  @doc """
   Get open, high, low, close, volumefrom and volumeto from the daily historical data.The values are based on 00:00 GMT time.It uses BTC conversion if data is not available because the coin is not trading in the specified currency.
 
   try_conversion	If set to false, it will try to get only direct trading values
