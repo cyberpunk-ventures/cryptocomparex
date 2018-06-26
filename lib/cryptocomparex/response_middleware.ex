@@ -14,7 +14,11 @@ defmodule Cryptocomparex.ResponseMiddleware do
     with {:ok, env = %{body: body, url: url}} <- response do
       env = put_in(env.body, parse_body_for(body, url))
 
-      {:ok, env}
+      if env.body[:response] == "Error" do
+        {:error, env}
+      else
+        {:ok, env}
+      end
     else
       err -> err
     end
