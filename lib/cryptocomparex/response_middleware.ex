@@ -49,6 +49,9 @@ defmodule Cryptocomparex.ResponseMiddleware do
 
         Map.put(body, :data, data)
 
+      is_daily_avg_endpoint?(url) ->
+        body |> KeyTools.underscore_keys() |> KeyTools.atomize_keys()
+
       true ->
         body
     end
@@ -60,5 +63,9 @@ defmodule Cryptocomparex.ResponseMiddleware do
 
   def is_all_coins_endpoint?(url) do
     String.contains?(url, ["data/all/coinlist"])
+  end
+
+  def is_daily_avg_endpoint?(url) do
+    String.contains?(url, ["data/dayAvg"])
   end
 end
