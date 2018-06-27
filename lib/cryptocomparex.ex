@@ -55,7 +55,9 @@ defmodule Cryptocomparex do
 
     ## Examples
 
-      iex> {:ok, %{body: body = %{data: data}}} = Cryptocomparex.get_histo_daily_ohlcvs(%{fsym: "BTC", tsym: "USD"})
+      iex> alias Cryptocomparex.HistoOhlcvOpts
+      iex> opts = %HistoOhlcvOpts{fsym: "BTC", tsym: "USD"}
+      iex> {:ok, %{body: body = %{data: data}}} = Cryptocomparex.get_histo_daily_ohlcvs(opts)
       iex> is_list(data) and is_float(hd(data).high)
       true
 
@@ -84,7 +86,9 @@ defmodule Cryptocomparex do
 
     ## Examples
 
-    iex> {:ok, %{body: body = %{data: data}}} = Cryptocomparex.get_histo_hourly_ohlcvs(%{fsym: "BTC", tsym: "USD"})
+    iex> alias Cryptocomparex.HistoOhlcvOpts
+    iex> opts = %HistoOhlcvOpts{fsym: "BTC", tsym: "USD"}
+    iex> {:ok, %{body: body = %{data: data}}} = Cryptocomparex.get_histo_hourly_ohlcvs(opts)
     iex> is_list(data) and is_float(hd(data).high)
     true
 
@@ -113,7 +117,9 @@ defmodule Cryptocomparex do
 
     ## Examples
 
-    iex> {:ok, %{body: body = %{data: data}}} = Cryptocomparex.get_histo_minute_ohlcvs(%{fsym: "BTC", tsym: "USD"})
+    iex> alias Cryptocomparex.HistoOhlcvOpts
+    iex> opts = %HistoOhlcvOpts{fsym: "BTC", tsym: "USD"}
+    iex> {:ok, %{body: body = %{data: data}}} = Cryptocomparex.get_histo_minute_ohlcvs(opts)
     iex> is_list(data) and is_float(hd(data).high)
     true
 

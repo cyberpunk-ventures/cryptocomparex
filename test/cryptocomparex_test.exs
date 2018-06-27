@@ -1,10 +1,12 @@
 defmodule CryptocomparexTest do
   use ExUnit.Case
   doctest Cryptocomparex
+  alias Cryptocomparex.HistoOhlcvOpts
 
   test "gets and parses get_histo_day response" do
+    opts = %HistoOhlcvOpts{fsym: "BTC", tsym: "USD"}
     {:ok, %{body: body = %{data: data}}} =
-      Cryptocomparex.get_histo_day(%{fsym: "BTC", tsym: "USD"})
+      Cryptocomparex.get_histo_daily_ohlcvs(opts)
 
     assert is_list(data)
     assert is_float(hd(data).high)
@@ -14,8 +16,10 @@ defmodule CryptocomparexTest do
     {:ok, ndt} = NaiveDateTime.new(2018, 1, 1, 0, 0, 0)
     to_ts = ndt |> DateTime.from_naive!("Etc/UTC") |> DateTime.to_unix()
 
+    opts = %HistoOhlcvOpts{fsym: "BTC", tsym: "USD", to_ts: to_ts}
+
     {:ok, %{body: body}} =
-      Cryptocomparex.get_daily_avg(%{fsym: "BTC", tsym: "USD", to_ts: to_ts})
+      Cryptocomparex.get_histo_daily_avg(opts)
 
     assert body["USD"] == 13406.61
   end
