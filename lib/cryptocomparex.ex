@@ -54,12 +54,12 @@ defmodule Cryptocomparex do
 
     ## Examples
 
-      iex> {:ok, %{body: body = %{data: data}}} = Cryptocomparex.get_histo_day(%{fsym: "BTC", tsym: "USD"})
+      iex> {:ok, %{body: body = %{data: data}}} = Cryptocomparex.get_histo_daily_ohlcvs(%{fsym: "BTC", tsym: "USD"})
       iex> is_list(data) and is_float(hd(data).high)
       true
 
   """
-  def get_histo_day(%{fsym: _fsym, tsym: _tsym} = params) do
+  def get_histo_daily_ohlcvs(%{fsym: _fsym, tsym: _tsym} = params) do
     query =
       params
       |> KeyTools.camelize_keys(true)
@@ -83,12 +83,12 @@ defmodule Cryptocomparex do
 
     ## Examples
 
-    iex> {:ok, %{body: body = %{data: data}}} = Cryptocomparex.get_histo_hour(%{fsym: "BTC", tsym: "USD"})
+    iex> {:ok, %{body: body = %{data: data}}} = Cryptocomparex.get_histo_hourly_ohlcvs(%{fsym: "BTC", tsym: "USD"})
     iex> is_list(data) and is_float(hd(data).high)
     true
 
   """
-  def get_histo_hour(%{fsym: _fsym, tsym: _tsym} = params) do
+  def get_histo_hourly_ohlcvs(%{fsym: _fsym, tsym: _tsym} = params) do
     query =
       params
       |> KeyTools.camelize_keys(true)
@@ -112,12 +112,12 @@ defmodule Cryptocomparex do
 
     ## Examples
 
-    iex> {:ok, %{body: body = %{data: data}}} = Cryptocomparex.get_histo_minute(%{fsym: "BTC", tsym: "USD"})
+    iex> {:ok, %{body: body = %{data: data}}} = Cryptocomparex.get_histo_minute_ohlcvs(%{fsym: "BTC", tsym: "USD"})
     iex> is_list(data) and is_float(hd(data).high)
     true
 
   """
-  def get_histo_minute(%{fsym: _fsym, tsym: _tsym} = params) do
+  def get_histo_minute_ohlcvs(%{fsym: _fsym, tsym: _tsym} = params) do
     query =
       params
       |> KeyTools.camelize_keys(true)
@@ -147,7 +147,7 @@ defmodule Cryptocomparex do
   sign	If set to true, the server will sign the requests (be default we don't sign them), this is useful for usage in smart contracts
 
   """
-  def get_daily_avg(%{fsym: _fsym, tsym: _tsym, to_ts: _to_ts} = params) do
+  def get_histo_daily_avg(%{fsym: _fsym, tsym: _tsym, to_ts: _to_ts} = params) do
     query =
       params
       |> KeyTools.camelize_keys(true)
