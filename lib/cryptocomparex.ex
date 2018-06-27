@@ -1,5 +1,6 @@
 defmodule Cryptocomparex do
   use Tesla
+  alias Cryptocomparex.HistoOhlcvOpts
 
   plug Tesla.Middleware.BaseUrl, "https://min-api.cryptocompare.com"
   plug Cryptocomparex.ResponseMiddleware
@@ -59,7 +60,7 @@ defmodule Cryptocomparex do
       true
 
   """
-  def get_histo_daily_ohlcvs(%{fsym: _fsym, tsym: _tsym} = params) do
+  def get_histo_daily_ohlcvs(%HistoOhlcvOpts{fsym: _fsym, tsym: _tsym} = params) do
     query =
       params
       |> KeyTools.camelize_keys(true)
@@ -88,7 +89,7 @@ defmodule Cryptocomparex do
     true
 
   """
-  def get_histo_hourly_ohlcvs(%{fsym: _fsym, tsym: _tsym} = params) do
+  def get_histo_hourly_ohlcvs(%HistoOhlcvOpts{fsym: _fsym, tsym: _tsym} = params) do
     query =
       params
       |> KeyTools.camelize_keys(true)
@@ -117,7 +118,7 @@ defmodule Cryptocomparex do
     true
 
   """
-  def get_histo_minute_ohlcvs(%{fsym: _fsym, tsym: _tsym} = params) do
+  def get_histo_minute_ohlcvs(%HistoOhlcvOpts{fsym: _fsym, tsym: _tsym} = params) do
     query =
       params
       |> KeyTools.camelize_keys(true)
