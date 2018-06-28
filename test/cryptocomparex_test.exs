@@ -1,10 +1,10 @@
 defmodule CryptocomparexTest do
   use ExUnit.Case
   doctest Cryptocomparex
-  alias Cryptocomparex.HistoOhlcvOpts
+  alias Cryptocomparex.HistoOhlcvsOpts
 
   test "gets and parses get_histo_day response" do
-    opts = %HistoOhlcvOpts{fsym: "BTC", tsym: "USD"}
+    opts = %HistoOhlcvsOpts{fsym: "BTC", tsym: "USD"}
     {:ok, %{body: body = %{data: data}}} =
       Cryptocomparex.get_histo_daily_ohlcvs(opts)
 

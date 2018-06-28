@@ -1,6 +1,6 @@
 defmodule Cryptocomparex do
   use Tesla
-  alias Cryptocomparex.HistoOhlcvOpts
+  alias Cryptocomparex.HistoOhlcvsOpts
 
   plug Tesla.Middleware.BaseUrl, "https://min-api.cryptocompare.com"
   plug Cryptocomparex.ResponseMiddleware
@@ -55,14 +55,14 @@ defmodule Cryptocomparex do
 
     ## Examples
 
-      iex> alias Cryptocomparex.HistoOhlcvOpts
-      iex> opts = %HistoOhlcvOpts{fsym: "BTC", tsym: "USD"}
+      iex> alias Cryptocomparex.HistoOhlcvsOpts
+      iex> opts = %HistoOhlcvsOpts{fsym: "BTC", tsym: "USD"}
       iex> {:ok, %{body: body = %{data: data}}} = Cryptocomparex.get_histo_daily_ohlcvs(opts)
       iex> is_list(data) and is_float(hd(data).high)
       true
 
   """
-  def get_histo_daily_ohlcvs(%HistoOhlcvOpts{fsym: _fsym, tsym: _tsym} = params) do
+  def get_histo_daily_ohlcvs(%HistoOhlcvsOpts{fsym: _fsym, tsym: _tsym} = params) do
     query =
       params
       |> Map.from_struct()
@@ -88,14 +88,14 @@ defmodule Cryptocomparex do
 
     ## Examples
 
-    iex> alias Cryptocomparex.HistoOhlcvOpts
-    iex> opts = %HistoOhlcvOpts{fsym: "BTC", tsym: "USD"}
+    iex> alias Cryptocomparex.HistoOhlcvsOpts
+    iex> opts = %HistoOhlcvsOpts{fsym: "BTC", tsym: "USD"}
     iex> {:ok, %{body: body = %{data: data}}} = Cryptocomparex.get_histo_hourly_ohlcvs(opts)
     iex> is_list(data) and is_float(hd(data).high)
     true
 
   """
-  def get_histo_hourly_ohlcvs(%HistoOhlcvOpts{fsym: _fsym, tsym: _tsym} = params) do
+  def get_histo_hourly_ohlcvs(%HistoOhlcvsOpts{fsym: _fsym, tsym: _tsym} = params) do
     query =
       params
       |> Map.from_struct()
@@ -121,14 +121,14 @@ defmodule Cryptocomparex do
 
     ## Examples
 
-    iex> alias Cryptocomparex.HistoOhlcvOpts
-    iex> opts = %HistoOhlcvOpts{fsym: "BTC", tsym: "USD"}
+    iex> alias Cryptocomparex.HistoOhlcvsOpts
+    iex> opts = %HistoOhlcvsOpts{fsym: "BTC", tsym: "USD"}
     iex> {:ok, %{body: body = %{data: data}}} = Cryptocomparex.get_histo_minute_ohlcvs(opts)
     iex> is_list(data) and is_float(hd(data).high)
     true
 
   """
-  def get_histo_minute_ohlcvs(%HistoOhlcvOpts{fsym: _fsym, tsym: _tsym} = params) do
+  def get_histo_minute_ohlcvs(%HistoOhlcvsOpts{fsym: _fsym, tsym: _tsym} = params) do
     query =
       params
       |> Map.from_struct()
@@ -169,7 +169,7 @@ defmodule Cryptocomparex do
   end
 
   defp remove_nil_fields(map) do
-    for {k,v} <- map, !is_nil(v), into: %{} do
+    for {k, v} <- map, !is_nil(v), into: %{} do
       {k, v}
     end
   end
