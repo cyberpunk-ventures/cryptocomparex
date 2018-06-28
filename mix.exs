@@ -30,4 +30,17 @@ defmodule Cryptocomparex.MixProject do
       {:dialyxir, "~> 1.0.0-rc.2", only: [:dev], runtime: false}
     ]
   end
+
+  defp package do
+    [
+      name: :cryptocomparex,
+      files: ["lib", "mix.exs", "README*", "LICENSE*"],
+      maintainers: ["ontofractal"],
+      licenses: ["MIT"],
+      links: %{
+        "GitHub" => "https://github.com/cyberpunk-ventures/cryptocomparex",
+        "Cyberpunk Ventures" => "http://cyberpunk.ventures"
+      }
+    ]
+  end
 end
