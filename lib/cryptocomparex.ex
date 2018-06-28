@@ -11,7 +11,7 @@ defmodule Cryptocomparex do
   """
 
   @doc """
-  Hello world.
+  Returns exchanges
 
   ## Examples
 
@@ -27,7 +27,7 @@ defmodule Cryptocomparex do
   end
 
   @doc """
-  Hello world.
+  Returns coin list
 
   ## Examples
 
