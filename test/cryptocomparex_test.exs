@@ -5,7 +5,7 @@ defmodule CryptocomparexTest do
 
   test "gets and parses get_histo_day response" do
     opts = %HistoOhlcvsOpts{fsym: "BTC", tsym: "USD"}
-    {:ok, %{body: body = %{data: data}}} =
+    {:ok, %{body: _body = %{data: data}}} =
       Cryptocomparex.get_histo_daily_ohlcvs(opts)
 
     assert is_list(data)
