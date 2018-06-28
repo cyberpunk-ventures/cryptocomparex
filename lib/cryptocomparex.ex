@@ -20,6 +20,8 @@ defmodule Cryptocomparex do
       true
 
   """
+
+  @spec get_exchanges() :: {:ok, Tesla.Env.t()} | {:error, any}
   def get_exchanges() do
     get("/data/all/exchanges")
   end
@@ -35,6 +37,7 @@ defmodule Cryptocomparex do
 
   """
 
+  @spec get_coin_list() :: {:ok, Tesla.Env.t()} | {:error, any}
   def get_coin_list() do
     get("data/all/coinlist")
   end
@@ -62,6 +65,7 @@ defmodule Cryptocomparex do
       true
 
   """
+  @spec get_histo_daily_ohlcvs(%HistoOhlcvsOpts{}) :: {:ok, Tesla.Env.t()} | {:error, any}
   def get_histo_daily_ohlcvs(%HistoOhlcvsOpts{fsym: _fsym, tsym: _tsym} = params) do
     query =
       params
@@ -95,6 +99,7 @@ defmodule Cryptocomparex do
     true
 
   """
+  @spec get_histo_hourly_ohlcvs(%HistoOhlcvsOpts{}) :: {:ok, Tesla.Env.t()} | {:error, any}
   def get_histo_hourly_ohlcvs(%HistoOhlcvsOpts{fsym: _fsym, tsym: _tsym} = params) do
     query =
       params
@@ -128,6 +133,7 @@ defmodule Cryptocomparex do
     true
 
   """
+  @spec get_histo_minute_ohlcvs(%HistoOhlcvsOpts{}) :: {:ok, Tesla.Env.t()} | {:error, any}
   def get_histo_minute_ohlcvs(%HistoOhlcvsOpts{fsym: _fsym, tsym: _tsym} = params) do
     query =
       params
@@ -159,6 +165,7 @@ defmodule Cryptocomparex do
   sign	If set to true, the server will sign the requests (be default we don't sign them), this is useful for usage in smart contracts
 
   """
+  @spec get_histo_daily_avg(map) :: {:ok, Tesla.Env.t()} | {:error, any}
   def get_histo_daily_avg(%{fsym: _fsym, tsym: _tsym, to_ts: _to_ts} = params) do
     query =
       params
