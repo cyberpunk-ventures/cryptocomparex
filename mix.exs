@@ -7,7 +7,8 @@ defmodule Cryptocomparex.MixProject do
       version: "0.1.0",
       elixir: "~> 1.6",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      package: package()
     ]
   end
 
@@ -27,7 +28,8 @@ defmodule Cryptocomparex.MixProject do
       {:tesla, "1.0.0"},
       {:jason, "1.0.0"},
       {:key_tools, "~> 0.4"},
-      {:dialyxir, "~> 1.0.0-rc.2", only: [:dev], runtime: false}
+      {:dialyxir, "~> 1.0.0-rc.2", only: [:dev], runtime: false},
+      {:ex_doc, ">= 0.0.0", only: :dev}
     ]
   end
 
@@ -36,6 +38,8 @@ defmodule Cryptocomparex.MixProject do
       name: :cryptocomparex,
       files: ["lib", "mix.exs", "README*", "LICENSE*"],
       maintainers: ["ontofractal"],
+      description:
+        "Cryptocomparex is an unofficial Elixir/Erlang API client for Cryptocompare API.",
       licenses: ["MIT"],
       links: %{
         "GitHub" => "https://github.com/cyberpunk-ventures/cryptocomparex",
