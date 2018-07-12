@@ -169,6 +169,8 @@ defmodule Cryptocomparex do
   def get_histo_daily_avg(%{fsym: _fsym, tsym: _tsym, to_ts: _to_ts} = params) do
     query =
       params
+      |> Map.from_struct()
+      |> remove_nil_fields()
       |> KeyTools.camelize_keys(true)
       |> Enum.into(Keyword.new())
 
