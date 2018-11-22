@@ -4,8 +4,8 @@ defmodule Cryptocomparex.MixProject do
   def project do
     [
       app: :cryptocomparex,
-      version: "0.1.1",
-      elixir: "~> 1.6",
+      version: "0.1.2",
+      elixir: "~> 1.7",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       package: package()
