@@ -57,7 +57,7 @@ defmodule Cryptocomparex.ResponseMiddleware do
         body |> KeyTools.underscore_keys() |> KeyTools.atomize_keys()
 
       true ->
-        body
+        body |> KeyTools.underscore_keys() |> KeyTools.atomize_keys()
     end
   end
 

@@ -23,4 +23,13 @@ defmodule CryptocomparexTest do
 
     assert body.usd == 13406.61
   end
+
+  test "gets and parses get_full_data_multi response" do
+    opts = %HistoOhlcvsOpts{fsym: "BTC", tsym: "USD"}
+
+    {:ok, %{body: body}} = Cryptocomparex.get_full_data_multi(opts)
+
+    assert is_map(body.display.btc)
+    assert is_map(body.raw.btc)
+  end
 end

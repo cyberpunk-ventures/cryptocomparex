@@ -10,6 +10,20 @@ defmodule Cryptocomparex do
   Documentation for Cryptocomparex.
   """
 
+  def get_full_data_multi(%HistoOhlcvsOpts{fsym: fsym, tsym: tsym} = params) do
+    query =
+      params
+      |> Map.from_struct()
+      |> Map.drop([:fsym, :tsym])
+      |> Map.put(:fsyms, fsym)
+      |> Map.put(:tsyms, tsym)
+      |> remove_nil_fields()
+      |> KeyTools.camelize_keys(true)
+      |> Enum.into(Keyword.new())
+
+    get("/data/pricemultifull", query: query)
+  end
+
   @doc """
   Returns exchanges
 
