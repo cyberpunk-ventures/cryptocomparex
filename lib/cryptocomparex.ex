@@ -13,13 +13,10 @@ defmodule Cryptocomparex do
   def get_full_data_multi(%HistoOhlcvsOpts{fsym: fsym, tsym: tsym} = params) do
     query =
       params
-      |> Map.from_struct()
       |> Map.drop([:fsym, :tsym])
       |> Map.put(:fsyms, fsym)
       |> Map.put(:tsyms, tsym)
-      |> remove_nil_fields()
-      |> KeyTools.camelize_keys(true)
-      |> Enum.into(Keyword.new())
+      |> build_query_from_opts()
 
     get("/data/pricemultifull", query: query)
   end
@@ -80,13 +77,10 @@ defmodule Cryptocomparex do
 
   """
   @spec get_histo_daily_ohlcvs(%HistoOhlcvsOpts{}) :: {:ok, Tesla.Env.t()} | {:error, any}
-  def get_histo_daily_ohlcvs(%HistoOhlcvsOpts{fsym: _fsym, tsym: _tsym} = params) do
+  def get_histo_daily_ohlcvs(%HistoOhlcvsOpts{fsym: _fsym, tsym: _tsym} = opts) do
     query =
-      params
-      |> Map.from_struct()
-      |> remove_nil_fields()
-      |> KeyTools.camelize_keys(true)
-      |> Enum.into(Keyword.new())
+      opts
+      |> build_query_from_opts()
 
     get("/data/histoday", query: query)
   end
@@ -114,13 +108,10 @@ defmodule Cryptocomparex do
 
   """
   @spec get_histo_hourly_ohlcvs(%HistoOhlcvsOpts{}) :: {:ok, Tesla.Env.t()} | {:error, any}
-  def get_histo_hourly_ohlcvs(%HistoOhlcvsOpts{fsym: _fsym, tsym: _tsym} = params) do
+  def get_histo_hourly_ohlcvs(%HistoOhlcvsOpts{fsym: _fsym, tsym: _tsym} = opts) do
     query =
-      params
-      |> Map.from_struct()
-      |> remove_nil_fields()
-      |> KeyTools.camelize_keys(true)
-      |> Enum.into(Keyword.new())
+      opts
+      |> build_query_from_opts()
 
     get("/data/histohour", query: query)
   end
@@ -148,13 +139,10 @@ defmodule Cryptocomparex do
 
   """
   @spec get_histo_minute_ohlcvs(%HistoOhlcvsOpts{}) :: {:ok, Tesla.Env.t()} | {:error, any}
-  def get_histo_minute_ohlcvs(%HistoOhlcvsOpts{fsym: _fsym, tsym: _tsym} = params) do
+  def get_histo_minute_ohlcvs(%HistoOhlcvsOpts{fsym: _fsym, tsym: _tsym} = opts) do
     query =
-      params
-      |> Map.from_struct()
-      |> remove_nil_fields()
-      |> KeyTools.camelize_keys(true)
-      |> Enum.into(Keyword.new())
+      opts
+      |> build_query_from_opts()
 
     get("/data/histominute", query: query)
   end
@@ -180,13 +168,10 @@ defmodule Cryptocomparex do
 
   """
   @spec get_histo_daily_avg(map) :: {:ok, Tesla.Env.t()} | {:error, any}
-  def get_histo_daily_avg(%{fsym: _fsym, tsym: _tsym, to_ts: _to_ts} = params) do
+  def get_histo_daily_avg(%{fsym: _fsym, tsym: _tsym, to_ts: _to_ts} = opts) do
     query =
-      params
-      |> Map.from_struct()
-      |> remove_nil_fields()
-      |> KeyTools.camelize_keys(true)
-      |> Enum.into(Keyword.new())
+      opts
+      |> build_query_from_opts()
 
     get("/data/dayAvg", query: query)
   end
@@ -196,4 +181,14 @@ defmodule Cryptocomparex do
       {k, v}
     end
   end
+
+  def build_query_from_opts(opts) do
+    opts
+      |> Map.from_struct()
+      |> remove_nil_fields()
+      |> KeyTools.camelize_keys(true)
+      |> Enum.into(Keyword.new())
+
+  end
+
 end
