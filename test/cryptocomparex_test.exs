@@ -72,6 +72,17 @@ defmodule CryptocomparexTest do
     assert_full_data_multi_shape(body.raw.btc.usd)
   end
 
+  test "gets and parses get_full_data_multi response for more than 1 from symbols" do
+    opts = %Opts{fsym: ["BTC", "ETH"], tsym: "USD"}
+
+    {:ok, %{body: body}} = Cryptocomparex.get_full_data_multi(opts)
+
+    assert_full_data_multi_shape(body.display.eth.usd)
+    assert_full_data_multi_shape(body.raw.eth.usd)
+    assert_full_data_multi_shape(body.display.btc.usd)
+    assert_full_data_multi_shape(body.raw.btc.usd)
+  end
+
   test "get ohlcv with multiple granularities" do
     opts_day = %Opts{fsym: "BTC", tsym: "USD", granularity: :day}
     opts_hour = %Opts{fsym: "BTC", tsym: "USD", granularity: :hour}
