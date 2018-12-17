@@ -1,6 +1,7 @@
 defmodule Cryptocomparex do
   use Tesla
   alias Cryptocomparex.HistoOhlcvsOpts
+  alias Cryptocomparex.Opts
 
   plug Tesla.Middleware.BaseUrl, "https://min-api.cryptocompare.com"
   plug Cryptocomparex.ResponseMiddleware
@@ -78,9 +79,7 @@ defmodule Cryptocomparex do
   """
   @spec get_histo_daily_ohlcvs(%HistoOhlcvsOpts{}) :: {:ok, Tesla.Env.t()} | {:error, any}
   def get_histo_daily_ohlcvs(%HistoOhlcvsOpts{fsym: _fsym, tsym: _tsym} = opts) do
-    query =
-      opts
-      |> build_query_from_opts()
+    query = opts |> build_query_from_opts()
 
     get("/data/histoday", query: query)
   end
@@ -109,9 +108,7 @@ defmodule Cryptocomparex do
   """
   @spec get_histo_hourly_ohlcvs(%HistoOhlcvsOpts{}) :: {:ok, Tesla.Env.t()} | {:error, any}
   def get_histo_hourly_ohlcvs(%HistoOhlcvsOpts{fsym: _fsym, tsym: _tsym} = opts) do
-    query =
-      opts
-      |> build_query_from_opts()
+    query = opts |> build_query_from_opts()
 
     get("/data/histohour", query: query)
   end
@@ -140,11 +137,41 @@ defmodule Cryptocomparex do
   """
   @spec get_histo_minute_ohlcvs(%HistoOhlcvsOpts{}) :: {:ok, Tesla.Env.t()} | {:error, any}
   def get_histo_minute_ohlcvs(%HistoOhlcvsOpts{fsym: _fsym, tsym: _tsym} = opts) do
-    query =
-      opts
-      |> build_query_from_opts()
+    query = opts |> build_query_from_opts()
 
     get("/data/histominute", query: query)
+  end
+
+  @doc """
+  Get historical OHLCV data
+
+  accepts Cryptocomparex.Opts
+
+  try_conversion	If set to false, it will try to get only direct trading values
+  fsym	REQUIRED The cryptocurrency symbol of interest [Max character length: 10]
+  tsym	REQUIRED The currency symbol to convert into [Max character length: 10]
+  granularity REQUIRED The ohlcv period :day, :hour, :minute
+  e	The exchange to obtain data from (our aggregated average - CCCAGG - by default) [Max character length: 30]
+  aggregate	Time period to aggregate the data over (for daily it's days, for hourly it's hours and for minute histo it's minutes)
+  limit	The number of data points to return
+  to_ts	Last unix timestamp to return data for
+  extra_params	The name of your application (we recommend you send it) [Max character length: 50]
+  sign	If set to true, the server will sign the requests (be default we don't sign them), this is useful for usage in smart contracts
+  """
+  @spec get_ohlcvs(%Opts{}) :: {:ok, Tesla.Env.t()} | {:error, any}
+  def get_ohlcvs(%Opts{fsym: _fsym, tsym: _tsym, granularity: gr} = opts) do
+    query = opts |> build_query_from_opts()
+
+    case gr do
+      :day ->
+        get("/data/histoday", query: query)
+
+      :hour ->
+        get("/data/histohour", query: query)
+
+      :minute ->
+        get("/data/histominute", query: query)
+    end
   end
 
   @doc """
@@ -169,9 +196,7 @@ defmodule Cryptocomparex do
   """
   @spec get_histo_daily_avg(map) :: {:ok, Tesla.Env.t()} | {:error, any}
   def get_histo_daily_avg(%{fsym: _fsym, tsym: _tsym, to_ts: _to_ts} = opts) do
-    query =
-      opts
-      |> build_query_from_opts()
+    query = opts |> build_query_from_opts()
 
     get("/data/dayAvg", query: query)
   end
@@ -184,11 +209,9 @@ defmodule Cryptocomparex do
 
   def build_query_from_opts(opts) do
     opts
-      |> Map.from_struct()
-      |> remove_nil_fields()
-      |> KeyTools.camelize_keys(true)
-      |> Enum.into(Keyword.new())
-
+    |> Map.from_struct()
+    |> remove_nil_fields()
+    |> KeyTools.camelize_keys(true)
+    |> Enum.into(Keyword.new())
   end
-
 end
