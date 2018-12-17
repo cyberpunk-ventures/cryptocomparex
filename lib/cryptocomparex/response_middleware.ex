@@ -1,5 +1,6 @@
 defmodule Cryptocomparex.ResponseMiddleware do
   @behaviour Tesla.Middleware
+  alias Cryptocomparex.ParsetransUtils
   @moduledoc """
   Parses and converts API responses to corresponding Elixir values, idiomatic underscored atom keys, etc.
   """
@@ -56,6 +57,12 @@ defmodule Cryptocomparex.ResponseMiddleware do
       is_daily_avg_endpoint?(url) ->
         body |> KeyTools.underscore_keys() |> KeyTools.atomize_keys()
 
+      is_price_full_multi_endpoint?(url) ->
+        body
+        |> ParsetransUtils.transform_multi_price_keys()
+        |> KeyTools.underscore_keys()
+        |> KeyTools.atomize_keys()
+
       true ->
         body |> KeyTools.underscore_keys() |> KeyTools.atomize_keys()
     end
@@ -72,4 +79,9 @@ defmodule Cryptocomparex.ResponseMiddleware do
   def is_daily_avg_endpoint?(url) do
     String.contains?(url, ["data/dayAvg"])
   end
+
+  def is_price_full_multi_endpoint?(url) do
+    String.contains?(url, ["/data/pricemultifull"])
+  end
+
 end
