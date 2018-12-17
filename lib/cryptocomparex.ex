@@ -11,7 +11,51 @@ defmodule Cryptocomparex do
   Documentation for Cryptocomparex.
   """
 
-  def get_full_data_multi(%HistoOhlcvsOpts{fsym: fsym, tsym: tsym} = params) do
+  @doc """
+  Get tickers with price, marketcap and other data with multiple from and to symbols.
+
+  Example response:
+
+  ```
+  %{
+  change_pct_day: 9.707652279157207,
+  high_day: 3623.97,
+  high_hour: 3623.97,
+  last_volume_to: 84.69906,
+  change_pct_24h: 8.97387780757882,
+  volume_24h: 98145.62993434526,
+  price: 3571.39,
+  from_symbol: "BTC",
+  total_volume_24h_to: 1668910653.0179288,
+  volume_hour_to: 42481787.06062327,
+  change_24h: 294.0999999999999,
+  to_symbol: "USD",
+  marketcap: 62242184920,
+  total_volume_24h: 471638.58217289834,
+  change_day: 316.02,
+  high_24h: 3633.18,
+  flags: "2",
+  supply: 17428000,
+  low_24h: 3223.53,
+  last_volume: 0.0237,
+  type: "5",
+  volume_hour: 11833.581951992031,
+  open_24h: 3277.29,
+  volume_day_to: 335036492.77656716,
+  market: "CCCAGG",
+  volume_24h_to: 335021658.3226829,
+  volume_day: 98148.20525116021,
+  low_day: 3239.06,
+  last_update: 1545076351,
+  last_trade_id: "9650279",
+  open_day: 3255.37,
+  last_market: "Cexio",
+  open_hour: 3578.41,
+  low_hour: 3567.74
+  }
+  ```
+  """
+  def get_full_data_multi(%Opts{fsym: fsym, tsym: tsym} = params) do
     query =
       params
       |> Map.drop([:fsym, :tsym])
