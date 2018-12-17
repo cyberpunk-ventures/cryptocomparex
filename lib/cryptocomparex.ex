@@ -59,8 +59,8 @@ defmodule Cryptocomparex do
     query =
       params
       |> Map.drop([:fsym, :tsym])
-      |> Map.put(:fsyms, fsym)
-      |> Map.put(:tsyms, tsym)
+      |> Map.put(:fsyms, fsym |> List.wrap |> Enum.join(","))
+      |> Map.put(:tsyms, tsym |> List.wrap |> Enum.join(","))
       |> build_query_from_opts()
 
     get("/data/pricemultifull", query: query)
