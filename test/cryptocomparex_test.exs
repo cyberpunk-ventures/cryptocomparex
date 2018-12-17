@@ -16,7 +16,7 @@ defmodule CryptocomparexTest do
     {:ok, ndt} = NaiveDateTime.new(2018, 1, 1, 0, 0, 0)
     to_ts = ndt |> DateTime.from_naive!("Etc/UTC") |> DateTime.to_unix()
 
-    opts = %{fsym: "BTC", tsym: "USD", to_ts: to_ts}
+    opts = %HistoOhlcvsOpts{fsym: "BTC", tsym: "USD", to_ts: to_ts}
 
     {:ok, %{body: body}} = Cryptocomparex.get_histo_daily_avg(opts)
 
@@ -63,7 +63,7 @@ defmodule CryptocomparexTest do
       volume_day: _,
       volume_day_to: _,
       volume_hour: _,
-      volume_hour_to: _,
+      volume_hour_to: _
     } = body.raw.btc.usd
 
     %{
@@ -98,7 +98,7 @@ defmodule CryptocomparexTest do
       volume_day: _,
       volume_day_to: _,
       volume_hour: _,
-      volume_hour_to: _,
+      volume_hour_to: _
     } = body.display.btc.usd
   end
 

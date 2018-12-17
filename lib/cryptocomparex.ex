@@ -28,7 +28,7 @@ defmodule Cryptocomparex do
   ## Examples
 
       iex> {:ok, %{body: body}} = Cryptocomparex.get_exchanges()
-      iex> is_map(body["Bitfinex"])
+      iex> is_map(body[:bitfinex])
       true
 
   """
