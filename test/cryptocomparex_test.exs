@@ -4,6 +4,43 @@ defmodule CryptocomparexTest do
   alias Cryptocomparex.HistoOhlcvsOpts
   alias Cryptocomparex.Opts
 
+  def assert_full_data_multi_shape(data) do
+    assert %{
+             change_24h: _,
+             change_day: _,
+             change_pct_24h: _,
+             change_pct_day: _,
+             from_symbol: _,
+             high_24h: _,
+             high_day: _,
+             high_hour: _,
+             last_market: _,
+             last_trade_id: _,
+             last_update: _,
+             last_volume: _,
+             last_volume_to: _,
+             low_24h: _,
+             low_day: _,
+             low_hour: _,
+             market: _,
+             marketcap: _,
+             open_24h: _,
+             open_day: _,
+             open_hour: _,
+             price: _,
+             supply: _,
+             to_symbol: _,
+             total_volume_24h: _,
+             total_volume_24h_to: _,
+             volume_24h: _,
+             volume_24h_to: _,
+             volume_day: _,
+             volume_day_to: _,
+             volume_hour: _,
+             volume_hour_to: _
+           } = data
+  end
+
   test "gets and parses get_histo_day response" do
     opts = %HistoOhlcvsOpts{fsym: "BTC", tsym: "USD"}
     {:ok, %{body: _body = %{data: data}}} = Cryptocomparex.get_histo_daily_ohlcvs(opts)
@@ -24,82 +61,15 @@ defmodule CryptocomparexTest do
   end
 
   test "gets and parses get_full_data_multi response" do
-    opts = %HistoOhlcvsOpts{fsym: "BTC", tsym: "USD"}
+    opts = %Opts{fsym: "BTC", tsym: "USD"}
 
     {:ok, %{body: body}} = Cryptocomparex.get_full_data_multi(opts)
 
     assert is_map(body.display.btc)
     assert is_map(body.raw.btc)
 
-    %{
-      change_24h: _,
-      change_day: _,
-      change_pct_24h: _,
-      change_pct_day: _,
-      from_symbol: _,
-      high_24h: _,
-      high_day: _,
-      high_hour: _,
-      last_market: _,
-      last_trade_id: _,
-      last_update: _,
-      last_volume: _,
-      last_volume_to: _,
-      low_24h: _,
-      low_day: _,
-      low_hour: _,
-      market: _,
-      marketcap: _,
-      open_24h: _,
-      open_day: _,
-      open_hour: _,
-      price: _,
-      supply: _,
-      to_symbol: _,
-      total_volume_24h: _,
-      total_volume_24h_to: _,
-      volume_24h: _,
-      volume_24h_to: _,
-      volume_day: _,
-      volume_day_to: _,
-      volume_hour: _,
-      volume_hour_to: _
-    } = body.raw.btc.usd
-
-    %{
-      change_24h: _,
-      change_day: _,
-      change_pct_24h: _,
-      change_pct_day: _,
-      from_symbol: _,
-      high_24h: _,
-      high_day: _,
-      high_hour: _,
-      last_market: _,
-      last_trade_id: _,
-      last_update: _,
-      last_volume: _,
-      last_volume_to: _,
-      low_24h: _,
-      low_day: _,
-      low_hour: _,
-      market: _,
-      marketcap: _,
-      open_24h: _,
-      open_day: _,
-      open_hour: _,
-      price: _,
-      supply: _,
-      to_symbol: _,
-      total_volume_24h: _,
-      total_volume_24h_to: _,
-      volume_24h: _,
-      volume_24h_to: _,
-      volume_day: _,
-      volume_day_to: _,
-      volume_hour: _,
-      volume_hour_to: _
-    } = body.display.btc.usd
+    assert_full_data_multi_shape(body.display.btc.usd)
+    assert_full_data_multi_shape(body.raw.btc.usd)
   end
 
   test "get ohlcv with multiple granularities" do
